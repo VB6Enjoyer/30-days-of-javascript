@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30 Days of JavaScript | VB6Enjoyer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-card: #1a1a1a;
+            --bg-card-hover: #222222;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --border: #2a2a2a;
+            --glow: rgba(59, 130, 246, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 13px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* Projects Grid */
+        .projects-section {
+            padding: 60px 0 100px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--accent);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .project-day {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            background: rgba(59, 130, 246, 0.1);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .project-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--text-secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-icon {
+            transform: translateX(4px);
+            color: var(--accent);
+        }
+
+        .project-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .project-path {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: var(--accent-hover);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 60px 0 40px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                gap: 24px;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project-card {
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.05s; }
+        .project-card:nth-child(2) { animation-delay: 0.1s; }
+        .project-card:nth-child(3) { animation-delay: 0.15s; }
+        .project-card:nth-child(4) { animation-delay: 0.2s; }
+        .project-card:nth-child(5) { animation-delay: 0.25s; }
+        .project-card:nth-child(6) { animation-delay: 0.3s; }
+        .project-card:nth-child(7) { animation-delay: 0.35s; }
+        .project-card:nth-child(8) { animation-delay: 0.4s; }
+        .project-card:nth-child(9) { animation-delay: 0.45s; }
+        .project-card:nth-child(10) { animation-delay: 0.5s; }
+        .project-card:nth-child(11) { animation-delay: 0.55s; }
+        .project-card:nth-child(12) { animation-delay: 0.6s; }
+        .project-card:nth-child(13) { animation-delay: 0.65s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-badge">30 Days of JavaScript Challenge</div>
+            <h1>Projects Collection</h1>
+            <p class="subtitle">
+                A collection of interactive web applications built for the 30 Days of JavaScript Challeng by Asabeneh Yetayeh. 
+                Each project demonstrates various JavaScript concepts, DOM manipulation, and modern web development practices.
+            </p>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">30</div>
+                    <div class="stat-label">Days</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">13</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">JavaScript</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="projects-section">
+            <div class="container">
+                <h2 class="section-title">Explore Projects</h2>
+                <div class="projects-grid">
+                    <a href="Day 22/level1.html" class="project-card">
+                        <div class="project-header">
+                            <span class="project-day">Day 22</span>
+                            <svg class="project-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="project-title">Number Generator</h3>
+                        <p class="project-path">/Day 22/level1.html</p>
+                    </a>
+
+                    <a href="Day 22/level2.html" class="project-card">
+                        <div class="project-header">
+                            <span class="project-day">Day 22</span>
+                            <svg class="project-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="project-title">World Countries List</h3>
+                        <p class="project-path">/Day 22/level2.html</p>
+                    </a>
+
+                    <a href="Day 22/level3.html" class="project-card">
+                        <div class="project-header">
+                            <span class="project-day">Day 22</span>
+                            <svg class="project-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="project-title">Challenges List</h3>
+                        <p class="project-path">/Day 22/level3.html</p>
+                    </a>
+
+                    <a href="Day 23/level1.html" class="project-card">
+                        <div class="project-header">
+                            <span class="project-day">Day 23</span>
+                            <svg class="project-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="project-title">Cooler Number Generator</h3>
+                        <p class="project-path">/Day 23/level1.html</p>
+                    </a>
+
+                    <a href="Day 23/level2.html" class="project-card">
+                        <div class="project-header">
+                            <span class="project-day">Day 23</span>
+                            <svg class="project-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="project-title">What Key Did I Press?</h3>
+                        <p class="project-path">/Day 23/level2.html</p>
+                    </a>
+
+                    <a href="Day 24/index.html" class="project-card">
+                        <div class="project-header">
+                            <span class="project-day">Day 24</span>
+                            <svg class="project-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="project-title">Cosmic Weight Calculator</h3>
+                        <p class="project-path">/Day 24/index.html</p>
+                    </a>
+
+                    <a href="Day 25/index.html" class="project-card">
+                        <div class="project-header">
+                            <span class="project-day">Day 25</span>
+                            <svg class="project-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="project-title">World Countries Data</h3>
+                        <p class="project-path">/Day 25/index.html</p>
+                    </a>
+
+                    <a href="Day 26/index.html" class="project-card">
+                        <div class="project-header">
+                            <span class="project-day">Day 26</span>
+                            <svg class="project-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="project-title">Cooler World Countries List</h3>
+                        <p class="project-path">/Day 26/index.html</p>
+                    </a>
+
+                    <a href="Day 27/index.html" class="project-card">
+                        <div class="project-header">
+                            <span class="project-day">Day 27</span>
+                            <svg class="project-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="project-title">Mini Personal Website</h3>
+                        <p class="project-path">/Day 27/index.html</p>
+                    </a>
+
+                    <a href="Day 28/index.html" class="project-card">
+                        <div class="project-header">
+                            <span class="project-day">Day 28</span>
+                            <svg class="project-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="project-title">Leaderboard</h3>
+                        <p class="project-path">/Day 28/index.html</p>
+                    </a>
+
+                    <a href="Day 29/index.html" class="project-card">
+                        <div class="project-header">
+                            <span class="project-day">Day 29</span>
+                            <svg class="project-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="project-title">Animation</h3>
+                        <p class="project-path">/Day 29/index.html</p>
+                    </a>
+
+                    <a href="Day 30/level1.html" class="project-card">
+                        <div class="project-header">
+                            <span class="project-day">Day 30</span>
+                            <svg class="project-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="project-title">Cooler World Countries Data</h3>
+                        <p class="project-path">/Day 30/level1.html</p>
+                    </a>
+
+                    <a href="Day 30/level2.html" class="project-card">
+                        <div class="project-header">
+                            <span class="project-day">Day 30</span>
+                            <svg class="project-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="project-title">People List</h3>
+                        <p class="project-path">/Day 30/level2.html</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Built with vanilla JavaScript, HTML & CSS | <a href="https://github.com" target="_blank" rel="noopener">View on GitHub</a></p>
+        </div>
+    </footer>
+</body>
+</html>
