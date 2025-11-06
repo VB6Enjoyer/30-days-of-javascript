@@ -68,7 +68,7 @@ inputArr.forEach(input => {
     input.className = "player-info-input";
     input.style.fontSize = "24px";
     input.style.color = "#444444";
-    input.style.border = "1px solid #e14112";
+    input.style.border = "1px solid #dfc117";
     input.style.padding = "10px";
     input.style.maxWidth = "222px";
     input.style.marginRight = "15px";
@@ -81,7 +81,7 @@ addButton.innerText = "Add player";
 addButton.style.border = "none";
 addButton.style.color = "#ffffff";
 addButton.style.fontSize = "24px";
-addButton.style.backgroundColor = "#e14112";
+addButton.style.backgroundColor = "#dfc117";
 addButton.style.padding = "11px 33px";
 addButton.style.cursor = "pointer";
 
@@ -91,7 +91,7 @@ addButton.addEventListener("mousedown", () => {
     addPlayer(nameInput.value, surnameInput.value, countryInput.value, scoreInput.value);
 });
 addButton.addEventListener("mouseup", () => {
-    addButton.style.backgroundColor = "#e14112";
+    addButton.style.backgroundColor = "#dfc117";
 });
 
 inputContainer.appendChild(addButton);
@@ -147,7 +147,7 @@ function addPlayer(name, surname, country, score) {
     leaderboardSpan.style.flexDirection = "row";
     leaderboardSpan.style.justifyContent = "space-between";
     leaderboardSpan.style.alignItems = "center"
-    leaderboardSpan.style.backgroundColor = "#e14112";
+    leaderboardSpan.style.backgroundColor = "#dfc117";
     leaderboardSpan.style.width = "1127px";
     leaderboardSpan.style.margin = "10px 0px";
 
@@ -296,3 +296,4 @@ surnameInput.value = "Smith";
 countryInput.value = "United Kingdom";
 
 scoreInput.value = "50";
+
