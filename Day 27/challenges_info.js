@@ -67,7 +67,7 @@ const vb6Enjoyer = {
       'Game Development',
       'Programming',
       'Databases',
-      'Developing API'
+      'Developing APIs'
     ],
     bio:
       "I am a programmer, developer, musician and poet/lyricist. I really like to learn and create new things!"
